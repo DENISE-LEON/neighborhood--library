@@ -1,5 +1,6 @@
 // this class is used to specify what each individual book can and can't do
 // included are properties of each individual book & check in, check out methods
+//not sure if I could specify each property for each book here, methinks no because too much code
 package com.pluralsight;
 
 import java.util.Scanner;
