@@ -3,7 +3,7 @@
 //20 books
 package com.pluralsight;
 
-public class BookShelf {
+public class Library {
     //initializing the books object using new
     //smth smth with the constructor, smth smth memory
     //must use a constructor bc is in class body

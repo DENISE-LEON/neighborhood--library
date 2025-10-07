@@ -3,16 +3,14 @@
 //not sure if I could specify each property for each book here, methinks no because too much code
 package com.pluralsight;
 
-import java.util.Scanner;
 
 public class Book {
-    Scanner scanner = new Scanner(System.in);
 
     private int id;
     private String isbn;
     private String title;
     private boolean isCheckedOut;
-    private String CheckedOutTo;
+    private String checkedOutTo;
 
 
     //the getter which allows us to summon the information
@@ -33,7 +31,7 @@ public class Book {
     }
 
     public String getCheckedOutTo() {
-        return CheckedOutTo;
+        return checkedOutTo;
     }
 
     //
@@ -54,7 +52,7 @@ public class Book {
     }
 
     public void setCheckedOutTo(String checkedOutTo) {
-        CheckedOutTo = checkedOutTo;
+        this.checkedOutTo = checkedOutTo;
     }
 
 
@@ -64,51 +62,24 @@ public class Book {
         this.isbn = isbn;
         this.title = title;
         this.isCheckedOut = isCheckedOut;
-        CheckedOutTo = checkedOutTo;
+        this.checkedOutTo = checkedOutTo;
     }
 
     //class methods
     //creating the method for when the book in checked out
     //using instance in order to update the values
-    public void checkOut(String wantToCheckOut, Scanner scanner) {
+    public void checkOut(String name) {
+        this.checkedOutTo = name;
+        this.isCheckedOut = true;
 
-        String name = "";
-        if (this.isCheckedOut) {
-            System.out.println("Sorry, the book you selected is currently unavailable");
-            return;
-        }
-        if (wantToCheckOut.equalsIgnoreCase("Y")) {
-            do {
-                System.out.println("In order to check out this book please provide your name");
-                name = scanner.nextLine();
-
-            } while (name.isBlank());
-
-            this.CheckedOutTo = name;
-            this.isCheckedOut = true;
-        } else {
-            System.out.println("Check out cancelled");
-        }
 
     }
 
-    //creating a method that allows the user to check in books
-    //using instance method to update the values
-    public void checkIn(Scanner scanner) {
-
-        String wantToCheckIn = scanner.nextLine().trim();
-
-        if (wantToCheckIn.equalsIgnoreCase("Y")) {
-            System.out.println("Thank you for returning our book! Have a great day!");
-            isCheckedOut = false;
-
-            this.CheckedOutTo = null;
-            this.isCheckedOut = false;
-
-        } else {
-            System.out.println("Return cancelled");
-        }
+    public void checkIn() {
+        this.isCheckedOut = false;
+        this.checkedOutTo = "";
     }
+
 
 }
 
