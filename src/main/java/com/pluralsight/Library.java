@@ -50,16 +50,34 @@ public class Library {
                 break;
             case 3:
                 System.out.println("Exiting menu");
+                String exitContinue = "E";
+                cancelExit(exitContinue);
                 break;
         }
 
         if (choice == 1) {
             System.out.println("Would you like to check out a book (Y) or exit (N)");
             String wantsToCheckOut = scanner.nextLine();
-            if (wantsToCheckOut.equalsIgnoreCase("y") || wantsToTryAgain == 1) {
+            if (wantsToCheckOut.equalsIgnoreCase("y")) {
                 //checkout process in here
                 checkOutProcess(books);
+            } else if (wantsToCheckOut.equalsIgnoreCase("N")){
+                String exitContinue = "X";
+                cancelExit(exitContinue);
             }
+        } else if (choice == 2) {
+            System.out.println("Would you like to check in a book(Y) or exit(N) ");
+            String wantsToCheckIn = scanner.nextLine();
+            if(wantsToCheckIn.equalsIgnoreCase("Y")) {
+                //check in process here
+                checkInProcess(books);
+
+
+            } else if (wantsToCheckIn.equalsIgnoreCase("N")) {
+                String exitContinue = "X";
+                cancelExit(exitContinue);
+            }
+
         }
 
 
@@ -98,6 +116,9 @@ public class Library {
             if (!found) {
                 System.out.println("The ID you have entered is incorrect. Would you like to try again(C) or exit(X)");
                 String exitContinue = scanner.nextLine();
+                if(exitContinue.equalsIgnoreCase("X")) {
+                    cancelExit(exitContinue);
+                }
             }
         } while (!found);
 
@@ -105,15 +126,56 @@ public class Library {
 
     public static void cancelExit(String exitContinue) {
         //if the user does not want to try again (input X)
+        if(exitContinue.equalsIgnoreCase("X")) {
+            System.out.println("Exiting....");
+            System.exit(0);
+        }
     }
 
 
     public static void viewCheckedOutBooks(Book[] books) {
+        //method to allow the user to view which books are checked out
+        System.out.println("The books checked out are:");
+        for (Book book : books) {
+            if (book.isCheckedOut()) {
+                System.out.printf("ID: %d, Title: %s, ISBN: %s", book.getId(), book.getTitle(), book.getIsbn());
+                System.out.println();
+            }
 
+        }
+    }
+
+    public static void checkInProcess(Book[] books) {
+        //allows user to check books in, reused check in process & changed some things
+        boolean found = false;
+        do {
+            System.out.println("Please enter the ID number of the book you would like to check in");
+            int bookID = scanner.nextInt();
+            scanner.nextLine();
+            for (Book book : books) {
+                if (book.getId() == bookID && book.isCheckedOut()) {
+                    found = true;
+                    book.checkIn();
+
+                    System.out.printf("You have successfully checked in %s! Thank you", book.getTitle());
+
+                } //cannot use an else statement in case # is incorrect because it will check the bookID number against every book in the array and display error msg
+            }
+            if (!found) {
+                System.out.println("The ID you have entered is incorrect. Would you like to try again(C) or exit(X)");
+                String exitContinue = scanner.nextLine();
+                if(exitContinue.equalsIgnoreCase("X")) {
+                    cancelExit(exitContinue);
+                }
+            }
+        } while (!found);
     }
 }
 
+/*
+my notes
 
+ */
 
 
 
