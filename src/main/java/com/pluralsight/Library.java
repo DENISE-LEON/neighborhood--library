@@ -10,7 +10,7 @@ public class Library {
 
     public static void main(String[] args) {
 
-
+        //books in the library and their properties
         Book[] books = {
                 new Book(1, "ISBN1001", "The Great Gatsby", true, "Jason Brocco"),
                 new Book(2, "ISBN1002", "To Kill a Mockingbird", false, null),
@@ -34,11 +34,13 @@ public class Library {
                 new Book(20, "ISBN1020", "Dracula", false, null)
         };
 
+        //asking user what they want to do, getting input using 1,2, or 3
         System.out.println("Hello, what would you like to do?");
         System.out.println("Your options are \n 1.view available books \n 2.view checked out books \n 3.exit");
         int choice = scanner.nextInt();
         scanner.nextLine();
 
+        //using switch statement based on what user has chosen
         switch (choice) {
             case 1:
                 viewAvailableBooks(books);
@@ -66,14 +68,35 @@ public class Library {
         }
         System.out.println("Would you like to check out a book (Y) or exit (N)");
         String wantsToCheckOut = scanner.nextLine();
-
+         boolean found = false;
         if (wantsToCheckOut.equalsIgnoreCase("Y")) {
+            System.out.println("Please enter the ID number of the book you would like to check out");
+            int bookID = scanner.nextInt();
+
+            scanner.nextLine();
+
+            //loop through all books to match id to book
+            for (Book book : books) {
+                if (book.getId() == bookID && !book.isCheckedOut()) {
+                    found = true;
+                    System.out.println("Please enter your name in order to check out");
+                    String name = scanner.nextLine();
+                    book.checkOut(name);
+
+                    System.out.printf("You have successfully checked out %s!", book.getTitle());
+
+                } //cannot use an else statement incase # is incorrect because it will check the bookID number against every book in the array and display error msg
+
+                if(!found) {
+                    System.out.println("The ID you have entered is incorrect please try again");
+                }
+            }
+
 
         }
 
 
-
-            String bookChoice = scanner.nextLine();
+        String bookChoice = scanner.nextLine();
 
         //use the check out method to
         //Show Available Books - Displays a list of all books that are not currently
