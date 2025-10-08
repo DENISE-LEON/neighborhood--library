@@ -36,11 +36,12 @@ public class Library {
 
         //asking user what they want to do, getting input using 1,2, or 3
         System.out.println("Hello, what would you like to do?");
-        System.out.println("Your options are \n 1.view available books \n 2.view checked out books \n 3.exit");
+        System.out.println("Your options are \n 1.view available books 📚 \n 2.view checked out books ✅ \n 3.exit ❌");
         int choice = scanner.nextInt();
         scanner.nextLine();
 
         //using switch statement based on what user has chosen
+
         switch (choice) {
             case 1:
                 viewAvailableBooks(books);
