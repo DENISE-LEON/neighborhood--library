@@ -53,6 +53,15 @@ public class Library {
                 break;
         }
 
+        if (choice == 1) {
+            System.out.println("Would you like to check out a book (Y) or exit (N)");
+            String wantsToCheckOut = scanner.nextLine();
+            if (wantsToCheckOut.equalsIgnoreCase("y") || wantsToTryAgain == 1) {
+                //checkout process in here
+                checkOutProcess(books);
+            }
+        }
+
 
     }
 
@@ -61,21 +70,20 @@ public class Library {
         System.out.println("The books available are:");
         for (Book book : books) {
             if (!book.isCheckedOut()) {
-                System.out.printf("Title: %s, ID: %d, ISBN: %s", book.getTitle(), book.getId(), book.getIsbn());
+                System.out.printf("ID: %d, Title: %s, ISBN: %s", book.getId(), book.getTitle(), book.getIsbn());
                 System.out.println();
             }
 
         }
-        System.out.println("Would you like to check out a book (Y) or exit (N)");
-        String wantsToCheckOut = scanner.nextLine();
-         boolean found = false;
-        if (wantsToCheckOut.equalsIgnoreCase("Y")) {
+    }
+
+    //check out process asks user to pick a book ID and then asks them for their name and updates the books status (checkedOutTo and checkedOut
+    public static void checkOutProcess(Book[] books) {
+        boolean found = false;
+        do {
             System.out.println("Please enter the ID number of the book you would like to check out");
             int bookID = scanner.nextInt();
-
             scanner.nextLine();
-
-            //loop through all books to match id to book
             for (Book book : books) {
                 if (book.getId() == bookID && !book.isCheckedOut()) {
                     found = true;
@@ -85,27 +93,18 @@ public class Library {
 
                     System.out.printf("You have successfully checked out %s!", book.getTitle());
 
-                } //cannot use an else statement incase # is incorrect because it will check the bookID number against every book in the array and display error msg
-
-                if(!found) {
-                    System.out.println("The ID you have entered is incorrect please try again");
-                }
+                } //cannot use an else statement in case # is incorrect because it will check the bookID number against every book in the array and display error msg
             }
+            if (!found) {
+                System.out.println("The ID you have entered is incorrect. Would you like to try again(C) or exit(X)");
+                String exitContinue = scanner.nextLine();
+            }
+        } while (!found);
 
+    }
 
-        }
-
-
-        String bookChoice = scanner.nextLine();
-
-        //use the check out method to
-        //Show Available Books - Displays a list of all books that are not currently
-        //checked out. Display the Id, ISBN and Title of the book.
-        //o Prompt the user to either select a book to check out, or exit to go back
-        //to the home screen
-        //o If the user wants to check out a book, prompt them for their name
-        //o Then check out the book
-
+    public static void cancelExit(String exitContinue) {
+        //if the user does not want to try again (input X)
     }
 
 
